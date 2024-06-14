@@ -5,20 +5,28 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
 
 func main() {
 	args := os.Args[1:]
 
-	if len(args) == 0 {
+	if len(args) < 1 {
 		fmt.Println("error: usage: <app> PATH")
 		return
 	}
 
-	path := strings.Join(args, " ")
+	joinedPath := strings.Join(args, " ")
+	cleanPath := filepath.Clean(joinedPath)
+	path, err := filepath.Abs(cleanPath)
+	if err != nil {
+		fmt.Printf("error: the file path '%s' is not correct\n", cleanPath)
+		return
+	}
 
-	if _, err := os.Stat(path); os.IsNotExist(err) {
+	_, err = os.Stat(path)
+	if err != nil {
 		fmt.Printf("error: the file '%s' does not exist\n", path)
 		return
 	}
@@ -38,7 +46,7 @@ func main() {
 	var out bytes.Buffer
 	cmd.Stdout = &out
 
-	err := cmd.Run()
+	err = cmd.Run()
 	if err != nil {
 		fmt.Printf("error: error running command: %s", err)
 	}
