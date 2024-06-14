@@ -19,7 +19,7 @@ func main() {
 	path := strings.Join(args, " ")
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		panic(fmt.Sprintf("error: the file '%s' does not exist\n", path))
+		fmt.Printf("error: the file '%s' does not exist\n", path)
 	}
 
 	psScript := fmt.Sprintf(`
@@ -39,7 +39,7 @@ func main() {
 
 	err := cmd.Run()
 	if err != nil {
-		panic(fmt.Sprintf("error: error running command: %s", err))
+		fmt.Printf("error: error running command: %s", err)
 	}
 
 	status := strings.TrimSpace(out.String())
