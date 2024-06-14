@@ -60,6 +60,8 @@ func main() {
 		fmt.Printf("pending: %s\n", status)
 	case "Error":
 		fmt.Printf("not_available: %s\n", status)
+	case "":
+		fmt.Println("no_status: empty")
 	default:
 		fmt.Printf("unknown_status: %s\n", status)
 	}
