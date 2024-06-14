@@ -29,6 +29,9 @@ status "Sync pending":
 status "Error":
 	"not_available: STATUS"
 
+status "No Status":
+	"no_status: empty"
+
 any other status:
 	"unknown_status: STATUS"
 ```
