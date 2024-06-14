@@ -20,6 +20,7 @@ func main() {
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		fmt.Printf("error: the file '%s' does not exist\n", path)
+		return
 	}
 
 	psScript := fmt.Sprintf(`
